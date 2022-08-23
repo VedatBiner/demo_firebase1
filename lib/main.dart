@@ -1,7 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo_firebase_setup1/views/sign_in_page.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../services/auth.dart';
+import '../views/sign_in_page.dart';
+import '../widgets/on_board.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,13 +19,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        primarySwatch: Colors.orange,
+    return Provider<Auth>(
+      create: (context) => Auth(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.orange,
+        ),
+        home: OnBoardWidget(),
       ),
-      home: const SignInPage(),
     );
   }
 }

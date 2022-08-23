@@ -1,5 +1,8 @@
-import 'package:demo_firebase_setup1/widgets/my_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../services/auth.dart';
+import '../widgets/my_elevated_button.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -7,6 +10,16 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () async {
+                Provider.of<Auth>(context, listen: false).signOut();
+              },
+              icon: const Icon(Icons.logout),
+          ),
+        ],
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -19,7 +32,10 @@ class SignInPage extends StatelessWidget {
             MyElevatedButton(
               color: Colors.orangeAccent,
               child: const Text("Sign In Anonymously"),
-              onPressed: () {},
+              onPressed: () async {
+                final user = await Provider.of<Auth>(context, listen: false).signInAnonymously();
+                print(user!.uid);
+              },
             ),
             const SizedBox(height: 10),
             MyElevatedButton(
@@ -39,3 +55,16 @@ class SignInPage extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
