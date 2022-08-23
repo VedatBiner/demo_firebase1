@@ -16,6 +16,7 @@ class MyElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
+          onSurface: color.withOpacity(0.8),
           primary: color,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(

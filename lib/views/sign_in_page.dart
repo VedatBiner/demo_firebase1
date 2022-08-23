@@ -4,8 +4,26 @@ import 'package:provider/provider.dart';
 import '../services/auth.dart';
 import '../widgets/my_elevated_button.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
+
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  bool _isLoading = false;
+
+  Future<void> _signInAnonymously() async {
+    setState(() {
+      _isLoading = true;
+    });
+    final user =
+        await Provider.of<Auth>(context, listen: false).signInAnonymously();
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +31,10 @@ class SignInPage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () async {
-                Provider.of<Auth>(context, listen: false).signOut();
-              },
-              icon: const Icon(Icons.logout),
+            onPressed: () async {
+              Provider.of<Auth>(context, listen: false).signOut();
+            },
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),
@@ -31,11 +49,8 @@ class SignInPage extends StatelessWidget {
             const SizedBox(height: 30),
             MyElevatedButton(
               color: Colors.orangeAccent,
+              onPressed: () => _isLoading ? null : _signInAnonymously,
               child: const Text("Sign In Anonymously"),
-              onPressed: () async {
-                final user = await Provider.of<Auth>(context, listen: false).signInAnonymously();
-                print(user!.uid);
-              },
             ),
             const SizedBox(height: 10),
             MyElevatedButton(
@@ -55,16 +70,3 @@ class SignInPage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
