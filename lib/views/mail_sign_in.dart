@@ -38,11 +38,41 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
             const SizedBox(
               height: 10,
             ),
-            TextFormField(),
+            TextFormField(
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                fillColor: Colors.white,
+                prefixIcon: const Icon(Icons.email),
+                hintText: "e-mail",
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.orange),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.indigo),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+            ),
             const SizedBox(
               height: 10,
             ),
-            TextFormField(),
+            TextFormField(
+              obscureText: true, // Şifreyi gizleyerek yazma
+              decoration: InputDecoration(
+                fillColor: Colors.white,
+                prefixIcon: const Icon(Icons.lock),
+                hintText: "Password",
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.orange),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.indigo),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+            ),
             const SizedBox(
               height: 10,
             ),
@@ -78,15 +108,60 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
             const SizedBox(
               height: 10,
             ),
-            TextFormField(),
+            TextFormField(
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                fillColor: Colors.white,
+                prefixIcon: const Icon(Icons.email),
+                hintText: "e-mail",
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.orange),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.indigo),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+            ),
             const SizedBox(
               height: 10,
             ),
-            TextFormField(),
+            TextFormField(
+              obscureText: true, // Şifreyi gizleyerek yazma
+              decoration: InputDecoration(
+                fillColor: Colors.white,
+                prefixIcon: const Icon(Icons.lock),
+                hintText: "Password",
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.orange),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.indigo),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+            ),
             const SizedBox(
               height: 10,
             ),
-            TextFormField(),
+            TextFormField(
+              obscureText: true, // Şifreyi gizleyerek yazma
+              decoration: InputDecoration(
+                fillColor: Colors.white,
+                prefixIcon: const Icon(Icons.lock),
+                hintText: "Password again",
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.orange),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.indigo),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+            ),
             const SizedBox(
               height: 10,
             ),
