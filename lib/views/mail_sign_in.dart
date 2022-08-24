@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:provider/provider.dart';
+
+import '../services/auth.dart';
 
 enum FormStatus { signIn, register }
 
@@ -26,7 +29,6 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
   }
 
   Widget buildSignInForm() {
-
     final _signInFormKey = GlobalKey<FormState>();
 
     return Padding(
@@ -44,8 +46,8 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
               height: 10,
             ),
             TextFormField(
-              validator: (value){
-                if (!EmailValidator.validate(value!)){
+              validator: (value) {
+                if (!EmailValidator.validate(value!)) {
                   return "lütfen geçerli bir adres giriniz";
                 } else {
                   return null; // her şey yolunda
@@ -70,8 +72,8 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
               height: 10,
             ),
             TextFormField(
-              validator: (value){
-                if (value!.length < 6){
+              validator: (value) {
+                if (value!.length < 6) {
                   print(value);
                   return "Şifre, altı (6) karakterden az olamaz";
                 } else {
@@ -117,7 +119,6 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
   }
 
   Widget buildRegisterForm() {
-
     final _registerFormKey = GlobalKey<FormState>();
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
@@ -139,8 +140,8 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
             ),
             TextFormField(
               controller: _emailController,
-              validator: (value){
-                if (!EmailValidator.validate(value!)){
+              validator: (value) {
+                if (!EmailValidator.validate(value!)) {
                   return "lütfen geçerli bir adres giriniz";
                 } else {
                   return null; // her şey yolunda
@@ -166,8 +167,8 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
             ),
             TextFormField(
               controller: _passwordController,
-              validator: (value){
-                if (value!.length < 6){
+              validator: (value) {
+                if (value!.length < 6) {
                   print(value);
                   return "Şifre, altı (6) karakterden az olamaz";
                 } else {
@@ -194,8 +195,8 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
             ),
             TextFormField(
               controller: _passwordConfirmController,
-              validator: (value){
-                if (value != _passwordController.text){
+              validator: (value) {
+                if (value != _passwordController.text) {
                   return "Şifreler uyuşmuyor";
                 } else {
                   return null;
@@ -220,8 +221,15 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
               height: 10,
             ),
             ElevatedButton(
-              onPressed: () {
-                print(_registerFormKey.currentState!.validate());
+              onPressed: () async {
+                if (_registerFormKey.currentState!.validate()) {
+                  final user = await Provider.of<Auth>(context, listen: false)
+                      .createUserWitEmailAndPassword(
+                          _emailController.text, _passwordController.text);
+                  print(user!.uid);
+                  print(user.emailVerified);
+                }
+
               },
               child: const Text("Kayıt"),
             ),
@@ -239,3 +247,4 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
     );
   }
 }
+
