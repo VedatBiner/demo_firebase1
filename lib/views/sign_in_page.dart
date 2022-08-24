@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../services/auth.dart';
 import '../widgets/my_elevated_button.dart';
+import '../views/mail_sign_in.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -56,7 +57,14 @@ class _SignInPageState extends State<SignInPage> {
             MyElevatedButton(
               color: Colors.yellowAccent,
               child: const Text("Sign In Email/Password"),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const EmailSignInPage(),
+                  ),
+                );
+              },
             ),
             const SizedBox(height: 10),
             MyElevatedButton(
