@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 
 enum FormStatus { signIn, register }
 
@@ -25,9 +26,13 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
   }
 
   Widget buildSignInForm() {
+
+    final _signInFormKey = GlobalKey<FormState>();
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Form(
+        key: _signInFormKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -39,6 +44,13 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
               height: 10,
             ),
             TextFormField(
+              validator: (value){
+                if (!EmailValidator.validate(value!)){
+                  return "lütfen geçerli bir adres giriniz";
+                } else {
+                  return null; // her şey yolunda
+                }
+              },
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 fillColor: Colors.white,
@@ -58,6 +70,14 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
               height: 10,
             ),
             TextFormField(
+              validator: (value){
+                if (value!.length < 6){
+                  print(value);
+                  return "Şifre, altı (6) karakterden az olamaz";
+                } else {
+                  return null; // her şey yolunda
+                }
+              },
               obscureText: true, // Şifreyi gizleyerek yazma
               decoration: InputDecoration(
                 fillColor: Colors.white,
@@ -77,7 +97,9 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
               height: 10,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                print(_signInFormKey.currentState!.validate());
+              },
               child: const Text("Giriş"),
             ),
             TextButton(
@@ -95,9 +117,16 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
   }
 
   Widget buildRegisterForm() {
+
+    final _registerFormKey = GlobalKey<FormState>();
+    TextEditingController _emailController = TextEditingController();
+    TextEditingController _passwordController = TextEditingController();
+    TextEditingController _passwordConfirmController = TextEditingController();
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Form(
+        key: _registerFormKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -109,6 +138,14 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
               height: 10,
             ),
             TextFormField(
+              controller: _emailController,
+              validator: (value){
+                if (!EmailValidator.validate(value!)){
+                  return "lütfen geçerli bir adres giriniz";
+                } else {
+                  return null; // her şey yolunda
+                }
+              },
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 fillColor: Colors.white,
@@ -128,6 +165,15 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
               height: 10,
             ),
             TextFormField(
+              controller: _passwordController,
+              validator: (value){
+                if (value!.length < 6){
+                  print(value);
+                  return "Şifre, altı (6) karakterden az olamaz";
+                } else {
+                  return null; // her şey yolunda
+                }
+              },
               obscureText: true, // Şifreyi gizleyerek yazma
               decoration: InputDecoration(
                 fillColor: Colors.white,
@@ -147,6 +193,14 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
               height: 10,
             ),
             TextFormField(
+              controller: _passwordConfirmController,
+              validator: (value){
+                if (value != _passwordController.text){
+                  return "Şifreler uyuşmuyor";
+                } else {
+                  return null;
+                }
+              },
               obscureText: true, // Şifreyi gizleyerek yazma
               decoration: InputDecoration(
                 fillColor: Colors.white,
@@ -166,7 +220,9 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
               height: 10,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                print(_registerFormKey.currentState!.validate());
+              },
               child: const Text("Kayıt"),
             ),
             TextButton(
